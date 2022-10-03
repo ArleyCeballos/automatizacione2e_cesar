@@ -1,5 +1,5 @@
 pipeline {
-   /* agent {label "windows"}
+   agent any/*
     parameters {
         string(name: 'ENV', defaultValue: 'prod', description: 'Ambiente de ejecución [dev | prod], por defecto se usa prod')
     }*/
