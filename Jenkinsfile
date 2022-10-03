@@ -1,8 +1,5 @@
 pipeline {
-   agent any/*
-    parameters {
-        string(name: 'ENV', defaultValue: 'prod', description: 'Ambiente de ejecución [dev | prod], por defecto se usa prod')
-    }*/
+   agent any
     stages {
         stage('build') {
             steps {
@@ -11,18 +8,9 @@ pipeline {
         }
         stage('test') {
             steps {
-               // catchError(buildResult: 'SUCCESS', message: 'Uno o más test en chrome fallaron, por favor revisar el reporte', stageResult: 'FAILURE') {
-                    bat 'gradlew.bat test' // -Dcontext=chrome -Dwebdriver.driver=chrome -Denvironment=${params.ENV}"
-               // }
+                   bat 'gradlew.bat test'
+                   }
             }
-        }
-        /*stage('test-firefox') {
-            steps {
-                catchError(buildResult: 'SUCCESS', message: 'Uno o más test en firefox fallaron, por favor revisar el reporte', stageResult: 'FAILURE') {
-                    bat "gradlew.bat test -Dcontext=firefox -Dwebdriver.driver=firefox -Denvironment=${params.ENV}"
-                }
-            }
-        }*/
         stage('aggregate') {
             steps {
                 bat 'gradlew.bat aggregate'
