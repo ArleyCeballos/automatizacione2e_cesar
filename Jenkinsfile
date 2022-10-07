@@ -16,18 +16,5 @@ pipeline {
                 bat 'gradlew.bat aggregate'
             }
         }
-        stage('publish report'){
-            steps {
-                publishHTML([
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'target/site/serenity',
-                    reportFiles: 'index.html',
-                    reportName: 'SerenityBDD',
-                    reportTitles: ''
-                ])
-            }
-        }
     }
 }
