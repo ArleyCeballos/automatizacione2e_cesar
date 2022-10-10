@@ -1,23 +1,23 @@
 package com.cedaniel200.automatizacion.userinterface;
 
-import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import static com.cedaniel200.automatizacion.userinterface.MenuPage.pag;
 
 public class PlaceOrderPage {
 
     private PlaceOrderPage() {
     }
 
-    public static final Target NAME = Target.the("Name").located(By.id("name"));
-    public static final Target COUNTRY = Target.the("Country").located(By.id("country"));
-    public static final Target CITY = Target.the("City").located(By.id("city"));
-    public static final Target CARD = Target.the("Card").located(By.id("card"));
-    public static final Target MONTH = Target.the("month").located(By.id("month"));
-    public static final Target YEAR = Target.the("year").located(By.id("year"));
+    public static final WebElement NAME = pag.findElement(By.id("name"));
+    public static final WebElement COUNTRY = pag.findElement(By.id("country"));
+    public static final WebElement CITY = pag.findElement(By.id("city"));
+    public static final WebElement CARD = pag.findElement(By.id("card"));
+    public static final WebElement MONTH = pag.findElement(By.id("month"));
+    public static final WebElement YEAR = pag.findElement(By.id("year"));
 
-    public static final Target PURCHASE_BUTTON = Target.the("Place Order button")
-            .locatedBy("//button[text()='Purchase']");
+    public static final WebElement PURCHASE_BUTTON = pag.findElement(By.linkText("//button[text()='Purchase']"));
 
-    public static final Target MESSAGE_SUCCESS_PURCHASE = Target.the("Message Thank you for your purchase!")
-            .locatedBy("//h2[text()='Thank you for your purchase!']");
+    public static final WebElement MESSAGE_SUCCESS_PURCHASE = pag.findElement(By.linkText("//h2[text()='Thank you for your purchase!']"));
 }

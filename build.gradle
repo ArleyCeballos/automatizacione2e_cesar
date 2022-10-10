@@ -15,6 +15,7 @@ buildscript {
     }
     dependencies {
         classpath("net.serenity-bdd:serenity-gradle-plugin:$rootProject.ext.serenityGradlePluginVersion")
+
     }
 }
 
@@ -51,7 +52,9 @@ dependencies {
     testImplementation "org.assertj:assertj-core:$rootProject.ext.assertjVersion"
 
     testImplementation "org.slf4j:slf4j-simple:$rootProject.ext.slf4jVersion"
-}
+
+    }
+
 
 /*
 test {

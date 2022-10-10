@@ -10,7 +10,7 @@ import static com.cedaniel200.automatizacion.userinterface.PlaceOrderPage.MESSAG
 public class PurchaseSuccessful implements Question<Boolean> {
     @Override
     public Boolean answeredBy(Actor actor) {
-        return MESSAGE_SUCCESS_PURCHASE.isVisibleFor(actor);
+        return MESSAGE_SUCCESS_PURCHASE.isEnabled();
     }
 
     public static PurchaseSuccessful thePurchaseIsSuccessful(){

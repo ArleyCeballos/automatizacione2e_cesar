@@ -2,14 +2,20 @@ package com.cedaniel200.automatizacion.userinterface;
 
 import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class MenuPage {
 
+    public static WebDriver pag;
+
     private MenuPage() {
+    pag.get("https://www.demoblaze.com");
     }
 
-    public static final Target CART_MENU = Target.the("Cart Menu").located(By.id("cartur"));
-    public static final Target HOME_MENU = Target.the("Home Menu").locatedBy("//a[text()='Home ']");
-    public static final Target LOG_IN_MENU = Target.the("Log in Menu").located(By.id("login2"));
-    public static final Target LOG_OUT_MENU = Target.the("Log out Menu").located(By.id("logout2"));
+
+    public static final WebElement CART_MENU = pag.findElement(By.id("cartur"));
+    public static final WebElement HOME_MENU = pag.findElement(By.linkText("//a[text()='Home ']"));
+    public static final WebElement LOG_IN_MENU = pag.findElement(By.id("login2"));
+    public static final WebElement LOG_OUT_MENU = pag.findElement(By.id("logout2"));
 }

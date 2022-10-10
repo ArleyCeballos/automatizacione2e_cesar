@@ -1,6 +1,7 @@
 package com.cedaniel200.automatizacion.stepdefinitions;
 
 import com.cedaniel200.automatizacion.interaction.Resize;
+import com.cedaniel200.automatizacion.model.ActorS;
 import com.cedaniel200.automatizacion.model.Product;
 import com.cedaniel200.automatizacion.model.Purchaser;
 import com.cedaniel200.automatizacion.task.Add;
@@ -15,14 +16,13 @@ import net.serenitybdd.screenplay.actors.OnlineCast;
 import static com.cedaniel200.automatizacion.model.Purchaser.PURCHASER_INFORMATION;
 import static com.cedaniel200.automatizacion.model.PurchaserFactory.createByName;
 import static com.cedaniel200.automatizacion.questions.PurchaseSuccessful.thePurchaseIsSuccessful;
-import static com.cedaniel200.automatizacion.task.Authenticate.authenticate;
+import static com.cedaniel200.automatizacion.task.Authenticate.autenticate;
 import static com.cedaniel200.automatizacion.task.Buy.buy;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
 public class PurchaseStepDefinitions {
-
+    ActorS actor;
     @Before
     public void setTheStage(){
         OnStage.setTheStage(new OnlineCast());
@@ -30,31 +30,27 @@ public class PurchaseStepDefinitions {
 
     @Given("^(.*) is authenticated$")
     public void authenticateActor(String actorName) {
+        ActorS actor=new ActorS(actorName);
         Purchaser aPurchaser = createByName(actorName);
-        theActorCalled(aPurchaser.getName()).attemptsTo(
-                Open.browserOn().thePageNamed("home.page"),
-                Resize.windowToMaximize(),
-                authenticate(aPurchaser.getCredentials())
-        );
-        theActorInTheSpotlight().remember(PURCHASER_INFORMATION, aPurchaser);
+        Open.browserOn().thePageNamed("home.page");
+        Resize.windowToMaximize();
+        autenticate(aPurchaser.getCredentials());
+        actor.remember(PURCHASER_INFORMATION, aPurchaser);
     }
 
     @Given("^add some products$")
     public void addToCart() {
         Product aProduct = Product.builder().category("Laptops").name("MacBook air").build();
         Product otherProduct = Product.builder().category("Monitors").name("Apple monitor 24").build();
+        Add.toCart(aProduct);
+        Add.toCart(otherProduct);
 
-        theActorInTheSpotlight().wasAbleTo(
-            Add.toCart(aProduct),
-            Add.toCart(otherProduct)
-        );
     }
 
     @When("^[a-zA-Z]{3,50} makes the purchase$")
     public void purchase() {
-        theActorInTheSpotlight().attemptsTo(
-            buy()
-        );
+        buy(actor);
+
     }
 
     @Then("should see the message Thank you for your purchase")
